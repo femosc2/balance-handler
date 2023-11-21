@@ -1,0 +1,212 @@
+[
+    {
+      "id": "40PPw_lS9ZjbwtiQwL2JN",
+      "type": "DECREASED",
+      "time": 1669279174754,
+      "customerId": "us.customer-01",
+      "adjustment": -275
+    },
+    {
+      "id": "uDCq1Wd2ou3-C9cXAs0-L",
+      "type": "DECREASED",
+      "time": 1670854689437,
+      "customerId": "us.customer-01",
+      "adjustment": -310
+    },
+    {
+      "id": "wpjwQ5_5yqeiKooLTmeCb",
+      "type": "DECREASED",
+      "time": 1671546897474,
+      "customerId": "it.customer-02",
+      "adjustment": -103
+    },
+    {
+      "id": "ZOSsAzcz-4QBj5K1T6p00",
+      "type": "DECREASED",
+      "time": 1671825700614,
+      "customerId": "us.customer-01",
+      "adjustment": -328
+    },
+    {
+      "id": "hQoRtaEIyxpsN7uzXaI1g",
+      "type": "DECREASED",
+      "time": 1673055052799,
+      "customerId": "fi.customer-01",
+      "adjustment": -210
+    },
+    {
+      "id": "GYFOZFH7XjiDi0UGqzBYH",
+      "type": "INCREASED",
+      "time": 1676436604797,
+      "customerId": "fi.customer-01",
+      "adjustment": 371
+    },
+    {
+      "id": "942B6rSoFwMgMeUK4qcED",
+      "type": "INCREASED",
+      "time": 1676812647807,
+      "customerId": "fi.customer-01",
+      "adjustment": 77
+    },
+    {
+      "id": "UB176yW8zoQ3ouajMOTaI",
+      "type": "INCREASED",
+      "time": 1679151142132,
+      "customerId": "fi.customer-01",
+      "adjustment": 297
+    },
+    {
+      "id": "j5pQin0qw_Gf-9IBaBDA2",
+      "type": "DECREASED",
+      "time": 1680421071269,
+      "customerId": "it.customer-02",
+      "adjustment": -17
+    },
+    {
+      "id": "k1I-yphgLKKNKLBT3cbSp",
+      "type": "INCREASED",
+      "time": 1681320543203,
+      "customerId": "it.customer-02",
+      "adjustment": 23
+    },
+    {
+      "id": "4Fui4Gcj1RSRMvYpLhxCX",
+      "type": "DECREASED",
+      "time": 1683953471495,
+      "customerId": "fi.customer-01",
+      "adjustment": -15
+    },
+    {
+      "id": "56w4wkEIslFRjCO_D7wgS",
+      "type": "DECREASED",
+      "time": 1683968598808,
+      "customerId": "it.customer-02",
+      "adjustment": -296
+    },
+    {
+      "id": "cPQR60LLgdRnYMhSgayHS",
+      "type": "DECREASED",
+      "time": 1684290178317,
+      "customerId": "fi.customer-01",
+      "adjustment": -289
+    },
+    {
+      "id": "RfoOX0d95BWBAziafcN2M",
+      "type": "INCREASED",
+      "time": 1687425774510,
+      "customerId": "us.customer-01",
+      "adjustment": 146
+    },
+    {
+      "id": "APic2aqTxlSiBSLNaUjUk",
+      "type": "DECREASED",
+      "time": 1687454642247,
+      "customerId": "us.customer-01",
+      "adjustment": -444
+    },
+    {
+      "id": "jLTvdsjoxeQJ_0v7vhWnI",
+      "type": "INCREASED",
+      "time": 1687802919646,
+      "customerId": "us.customer-01",
+      "adjustment": 420
+    },
+    {
+      "id": "s5pv5v1MowwXRPD1o0hPR",
+      "type": "INCREASED",
+      "time": 1687841876732,
+      "customerId": "us.customer-01",
+      "adjustment": 41
+    },
+    {
+      "id": "pF5XFxICuyMRsLsQy4A4k",
+      "type": "INCREASED",
+      "time": 1688436376077,
+      "customerId": "us.customer-01",
+      "adjustment": 147
+    },
+    {
+      "id": "lgHLnpQzMBpuD2n08mTJc",
+      "type": "INCREASED",
+      "time": 1688979082532,
+      "customerId": "us.customer-01",
+      "adjustment": 86
+    },
+    {
+      "id": "14VUI5duaiipl_3o1BsN7",
+      "type": "DECREASED",
+      "time": 1690148311571,
+      "customerId": "fi.customer-01",
+      "adjustment": -337
+    },
+    {
+      "id": "iZxEOuE7Hfug6VhohONpw",
+      "type": "INCREASED",
+      "time": 1690584341314,
+      "customerId": "it.customer-02",
+      "adjustment": 310
+    },
+    {
+      "id": "bmKJC56B0rAPeMx6UWiqj",
+      "type": "DECREASED",
+      "time": 1690918633011,
+      "customerId": "it.customer-02",
+      "adjustment": -251
+    },
+    {
+      "id": "5PHu6v42u_Nq3Qv562uLt",
+      "type": "DECREASED",
+      "time": 1692321685466,
+      "customerId": "fi.customer-01",
+      "adjustment": -270
+    },
+    {
+      "id": "iBXBDBr-wN1j8JN0dPFjZ",
+      "type": "INCREASED",
+      "time": 1694396853375,
+      "customerId": "fi.customer-01",
+      "adjustment": 131
+    },
+    {
+      "id": "z35X2SrLrS_uZAPN6eVHL",
+      "type": "DECREASED",
+      "time": 1694844717117,
+      "customerId": "us.customer-01",
+      "adjustment": -217
+    },
+    {
+      "id": "nTtg7nijjGwDGWipZi12f",
+      "type": "DECREASED",
+      "time": 1695240087297,
+      "customerId": "it.customer-02",
+      "adjustment": -322
+    },
+    {
+      "id": "VRSymQ5z6h2PyDEhDrnbj",
+      "type": "INCREASED",
+      "time": 1695559719006,
+      "customerId": "it.customer-02",
+      "adjustment": 349
+    },
+    {
+      "id": "Jhbn8zOvlkqWbGUnkD_sH",
+      "type": "INCREASED",
+      "time": 1697880037097,
+      "customerId": "fi.customer-01",
+      "adjustment": 98
+    },
+    {
+      "id": "6DfAq0ryBnIsvyvAaa6zn",
+      "type": "INCREASED",
+      "time": 1699011452255,
+      "customerId": "it.customer-02",
+      "adjustment": 316
+    },
+    {
+      "id": "U-Tp1z43j3B9S01WnOCPk",
+      "type": "INCREASED",
+      "time": 1700421845973,
+      "customerId": "it.customer-02",
+      "adjustment": 304
+    }
+  ]

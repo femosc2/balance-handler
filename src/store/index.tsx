@@ -1,18 +1,20 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { IToasts, toasts } from "../components/Toasts/redux/reducers";
+import { api } from "@/utilities/http";
 
 export interface IStore {
   toasts: IToasts;
 }
 
-export const reducers = combineReducers({
+const rootReducer = combineReducers({
   toasts,
+  [api.reducerPath]: api.reducer, // Add the RTK Query reducer under its path
 });
 
-const reduxStore = createStore(
-  reducers,
-  composeWithDevTools(applyMiddleware())
-);
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(api.middleware), // Add the RTK Query middleware
+});
 
-export default reduxStore;
+export default store;

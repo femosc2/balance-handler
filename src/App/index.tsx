@@ -1,7 +1,14 @@
+import Toasts from "@/components/Toasts";
 import "./App.css";
+import Balance from "@/Pages/Balance";
 
-function App() {
-  return <>App</>;
-}
+const App = () => {
+  return (
+    <>
+      <Toasts />
+      <Balance />
+    </>
+  );
+};
 
 export default App;
