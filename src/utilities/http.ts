@@ -1,7 +1,7 @@
 import { dummyBalances } from "../data";
-import { IBalanceItem } from "../interfaces";
+import { BalanceItem } from "@/interfaces";
 
-export function getAllBalances(): Promise<IBalanceItem[]> {
+export function getAllBalances(): Promise<BalanceItem[]> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(dummyBalances);

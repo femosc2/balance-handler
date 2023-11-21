@@ -1,6 +1,6 @@
-import { IBalanceItem } from "../interfaces";
+import { BalanceItem } from "@/interfaces";
 
-export const dummyBalances: IBalanceItem[] = [
+export const dummyBalances: BalanceItem[] = [
   {
     id: "40PPw_lS9ZjbwtiQwL2JN",
     type: "DECREASED",
