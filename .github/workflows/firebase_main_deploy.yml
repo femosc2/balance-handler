@@ -1,0 +1,66 @@
+name: Deploy to Main
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Check content
+        run: ls
+
+      - uses: actions/checkout@v2
+
+      # Use the cd command to navigate into the /client directory
+      - name: Use Node.js ${{ matrix.node-version }}
+        run: |
+          npm install
+          npm install -g npm
+        shell: bash
+
+      - name: Create .env file
+        run: |
+          echo "TEST=TEST" >> .env
+      - name: npm install, build, and test
+        run: |
+          npm run build
+      - name: Archive Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: ./dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download precheck
+        run: |
+          ls
+      - name: Download Build
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: ./dist
+      - name: Set Firebase alias
+        uses: w9jds/firebase-action@master
+        with:
+          args: use default
+        env:
+          FIREBASE_TOKEN: 1//0cjuTfmHBsChUCgYIARAAGAwSNwF-L9Ir9aRVJ_dEx2iRDsZlpMhGR8Ctj10CWqaVyGe3L_Y0fS9awSdDxtTpb5jUKEL2ZbkAGNw
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting:default
+        env:
+          FIREBASE_TOKEN: 1//0cjuTfmHBsChUCgYIARAAGAwSNwF-L9Ir9aRVJ_dEx2iRDsZlpMhGR8Ctj10CWqaVyGe3L_Y0fS9awSdDxtTpb5jUKEL2ZbkAGNw

@@ -4,20 +4,20 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useGetAllBalancesQuery } from "@/utilities/http";
 import BalanceListItem from "./BalanceListItem";
 import { StyledBalanceListUl } from "./BalanceList.style";
+import useWindowFocus from "use-window-focus";
 
 function BalanceList() {
   const [startDate, setStartDate] = useState<Date>(new Date("January 1 2022"));
   const [endDate, setEndDate] = useState<Date>(new Date("July 5 2023"));
-  const [page, setPage] = useState<number>(1); // Current page
-  const [hasMorePages, setHasMorePages] = useState(true);
+
+  const windowFocused = useWindowFocus();
 
   const { data, error, isLoading } = useGetAllBalancesQuery(
     {
       startDate: startDate.getTime(),
       endDate: endDate.getTime(),
-      page: page,
     },
-    { refetchOnMountOrArgChange: true }
+    { pollingInterval: windowFocused ? 1000 : 0 }
   );
 
   if (isLoading) {
@@ -27,11 +27,6 @@ function BalanceList() {
   if (error) {
     return <div>Error</div>;
   }
-
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-    setHasMorePages(data ? data.length < 10 : false);
-  };
 
   return (
     <section>
@@ -68,20 +63,6 @@ function BalanceList() {
           <BalanceListItem balance={balance} key={balance.id} />
         ))}
       </StyledBalanceListUl>
-      <div>
-        <button
-          onClick={() => handlePageChange(page - 1)}
-          disabled={page === 1}
-        >
-          Previous Page
-        </button>
-        <button
-          onClick={() => handlePageChange(page + 1)}
-          disabled={!hasMorePages}
-        >
-          Next Page
-        </button>
-      </div>
     </section>
   );
 }

@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "balance-handler"
+  },
+  "targets": {
+    "balance-handler": {
+      "hosting": {
+        "default": [
+          "balance-handler"
+        ]
+      }
+    }
+}
+}
