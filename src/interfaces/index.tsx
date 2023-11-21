@@ -1,8 +1,8 @@
-import { BalanceAction, ToastStatus } from "@/types";
+import { ToastStatus } from "@/types";
 
 export interface BalanceItem {
   id: string;
-  type: BalanceAction;
+  type: string; // This should be a balance action but no API
   time: number;
   customerId: string;
   adjustment: number;
