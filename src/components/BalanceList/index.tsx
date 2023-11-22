@@ -42,7 +42,7 @@ function BalanceList() {
   }
 
   // Calculate the total balance within the specified date range
-  const totalBalance = calculateTotalBalance(
+  const { openingBalance, closingBalance } = calculateTotalBalance(
     data as BalanceItem[],
     startDate,
     endDate
@@ -92,7 +92,8 @@ function BalanceList() {
           ))}
         </select>
       </div>
-      <div>Total Balance within the Date Range: {totalBalance}</div>
+      <div>Opening Balance: {openingBalance}</div>
+      <div>Closing Balance: {closingBalance}</div>
       <StyledBalanceListUl>
         {data &&
           Object.keys(data).map((key) => {

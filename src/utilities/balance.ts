@@ -6,6 +6,7 @@ export function calculateTotalBalance(
   endDate: Date
 ) {
   let totalBalance = 0;
+  let openingBalance = 0;
 
   for (const key in data) {
     if (data.hasOwnProperty(key)) {
@@ -23,8 +24,23 @@ export function calculateTotalBalance(
           totalBalance -= balanceItem.adjustment;
         }
       }
+
+      // Calculate the opening balance for events before the start date
+      if (balanceItemTime < startDate.getTime()) {
+        if (balanceItem.type === "INCREASED") {
+          openingBalance += balanceItem.adjustment;
+        } else if (balanceItem.type === "DECREASED") {
+          openingBalance -= balanceItem.adjustment;
+        }
+      }
     }
   }
 
-  return totalBalance;
+  // Calculate closing balance by adding the opening balance to the total balance
+  const closingBalance = openingBalance + totalBalance;
+
+  return {
+    openingBalance,
+    closingBalance,
+  };
 }
