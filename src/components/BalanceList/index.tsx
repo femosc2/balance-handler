@@ -74,9 +74,12 @@ function BalanceList() {
       )}
       <StyledBalanceListUl>
         {filteredBalanceItems?.map(
-          (balanceItem) =>
+          (balanceItem, index) =>
             balanceItem && (
-              <BalanceListItem balance={balanceItem} key={balanceItem.id} />
+              <BalanceListItem
+                balance={balanceItem}
+                key={balanceItem.id + index}
+              />
             )
         )}
       </StyledBalanceListUl>

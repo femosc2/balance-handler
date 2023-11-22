@@ -12,7 +12,6 @@ const BalanceListItem: React.FC<Props> = ({ balance }) => {
   return (
     <StyledBalanceItem
       isPositive={type === "INCREASED"}
-      key={id}
       role="listitem"
       aria-label={`Balance Item for Event ID ${id}`}
     >
