@@ -11,7 +11,7 @@ export const StyledBalanceItem = styled.li<{ isPositive: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
   @media (max-width: 1024px) {
     width: 85vw;
     margin-top: 20px;

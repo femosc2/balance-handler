@@ -5,3 +5,10 @@ export const StyledBalanceListUl = styled.ul`
   list-style: none;
   padding-inline-start: 0px;
 `;
+
+export const StyledBalanceContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+`;

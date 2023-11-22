@@ -1,5 +1,9 @@
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import {
+  StyledInput,
+  StyledInputContainer,
+  StyledSelect,
+} from "./BalanceFilters.styles";
 
 interface BalanceFiltersProps {
   startDate: Date;
@@ -21,10 +25,10 @@ function BalanceFilters({
   customerIds,
 }: BalanceFiltersProps) {
   return (
-    <div>
+    <StyledInputContainer>
       <div>
         <label htmlFor="startDate">Start Date:</label>
-        <DatePicker
+        <StyledInput
           id="startDate"
           selected={startDate}
           onChange={(date) => setStartDate(date || new Date("January 1 1970"))}
@@ -36,7 +40,7 @@ function BalanceFilters({
       </div>
       <div>
         <label htmlFor="endDate">End Date:</label>
-        <DatePicker
+        <StyledInput
           id="endDate"
           selected={endDate}
           onChange={(date) => setEndDate(date || new Date("January 1 3000"))}
@@ -48,7 +52,7 @@ function BalanceFilters({
       </div>
       <div>
         <label htmlFor="customerId">Select Customer:</label>
-        <select
+        <StyledSelect
           id="customerId"
           value={selectedCustomerId || ""}
           onChange={(e) => setSelectedCustomerId(e.target.value || "undefined")}
@@ -58,9 +62,9 @@ function BalanceFilters({
               {customerId}
             </option>
           ))}
-        </select>
+        </StyledSelect>
       </div>
-    </div>
+    </StyledInputContainer>
   );
 }
 

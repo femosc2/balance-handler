@@ -4,7 +4,7 @@ import { BalanceItem } from "@/interfaces";
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl:
-      "https://balance-handler-default-rtdb.europe-west1.firebasedatabase.app/",
+      "https://balance-handler-default-rtdb.europe-west1.firebasedatabase.app/", // should be located in an env file, but for simplicity i keep it here while demoing
   }),
   endpoints: (builder) => ({
     getBalanceByCustomer: builder.query<BalanceItem[], string>({
@@ -28,7 +28,6 @@ export const api = createApi({
             customerIds.push(balanceItem.customerId);
           }
         }
-
         return customerIds;
       },
     }),

@@ -4,13 +4,16 @@ import {
   useGetAllCustomerIdsQuery,
 } from "@/utilities/http";
 import BalanceListItem from "./BalanceListItem";
-import { StyledBalanceListUl } from "./BalanceList.style";
+import {
+  StyledBalanceContainer,
+  StyledBalanceListUl,
+} from "./BalanceList.style";
 import useWindowFocus from "use-window-focus";
 import { calculateTotalBalance } from "@/utilities/balance";
 import { BalanceItem, BalanceResult } from "@/interfaces";
 import { filterBalanceItemsByDateRange } from "@/utilities/filterBalanceItems";
 import BalanceDisplay from "./BalanceDisplay";
-import BalanceFilters from "./BalanceFilters"; // Import the BalanceFilters component
+import BalanceFilters from "./BalanceFilters";
 
 function BalanceList() {
   const [startDate, setStartDate] = useState<Date>(new Date("January 1 2023"));
@@ -52,7 +55,7 @@ function BalanceList() {
   }
 
   return (
-    <section>
+    <StyledBalanceContainer>
       <BalanceFilters
         startDate={startDate}
         setStartDate={setStartDate}
@@ -77,7 +80,7 @@ function BalanceList() {
             )
         )}
       </StyledBalanceListUl>
-    </section>
+    </StyledBalanceContainer>
   );
 }
 
