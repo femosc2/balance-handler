@@ -7,15 +7,32 @@ export const api = createApi({
       "https://balance-handler-default-rtdb.europe-west1.firebasedatabase.app/",
   }),
   endpoints: (builder) => ({
-    getAllBalances: builder.query<
-      BalanceItem[],
-      { startDate: number; endDate: number }
-    >({
-      query: ({ startDate, endDate }) => {
-        return `events.json?orderBy="time"&startAt=${startDate}&endAt=${endDate}&limitToLast=100`;
+    getBalanceByCustomer: builder.query<BalanceItem[], string>({
+      query: (customerId) => {
+        return `events.json?orderBy="customerId"&equalTo="${customerId}"&limitToLast=100`;
+      },
+    }),
+    getAllCustomerIds: builder.query<string[], void>({
+      query: () => {
+        return `events.json?orderBy="customerId"&limitToFirst=100`;
+      },
+      transformResponse: (response: Record<string, BalanceItem>) => {
+        const customerIds: string[] = [];
+
+        for (const key in response) {
+          const balanceItem = response[key];
+          if (
+            balanceItem.customerId &&
+            !customerIds.includes(balanceItem.customerId)
+          ) {
+            customerIds.push(balanceItem.customerId);
+          }
+        }
+
+        return customerIds;
       },
     }),
   }),
 });
 
-export const { useGetAllBalancesQuery } = api;
+export const { useGetBalanceByCustomerQuery, useGetAllCustomerIdsQuery } = api;
