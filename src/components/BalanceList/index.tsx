@@ -14,6 +14,8 @@ import { BalanceItem, BalanceResult } from "@/interfaces";
 import { filterBalanceItemsByDateRange } from "@/utilities/filterBalanceItems";
 import BalanceDisplay from "./BalanceDisplay";
 import BalanceFilters from "./BalanceFilters";
+import { useDispatch } from "react-redux";
+import { addToast } from "../Toasts/redux/actions";
 
 function BalanceList() {
   const [startDate, setStartDate] = useState<Date>(new Date("January 1 2023"));
@@ -21,6 +23,7 @@ function BalanceList() {
   const [selectedCustomerId, setSelectedCustomerId] =
     useState<string>("us.customer-01");
   const windowFocused = useWindowFocus();
+  const dispatch = useDispatch();
   const [totalBalanceInfo, setTotalBalanceInfo] = useState<BalanceResult>();
   const [filteredBalanceItems, setFilteredBalanceItems] =
     useState<BalanceItem[]>();
@@ -50,7 +53,17 @@ function BalanceList() {
   }
 
   if (error || customerIdsError) {
+    dispatch(
+      addToast({
+        header: "Failure",
+        body: `Invalid Customer`,
+        time: Date.now(),
+        status: "failure",
+        id: crypto.randomUUID(),
+      })
+    );
     setSelectedCustomerId("us.customer-01");
+
     return <div>Error</div>;
   }
 
