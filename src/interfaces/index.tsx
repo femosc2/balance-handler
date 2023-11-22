@@ -15,3 +15,9 @@ export interface Toast {
   header: string;
   body: string;
 }
+
+export interface BalanceResult {
+  openingBalance: number;
+  closingBalance: number;
+  balanceDifference: number;
+}

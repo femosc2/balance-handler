@@ -1,36 +1,46 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { useEffect, useState } from "react";
 import {
-  useGetBalanceByCustomerQuery, // Import the new hook
+  useGetBalanceByCustomerQuery,
   useGetAllCustomerIdsQuery,
 } from "@/utilities/http";
 import BalanceListItem from "./BalanceListItem";
 import { StyledBalanceListUl } from "./BalanceList.style";
 import useWindowFocus from "use-window-focus";
-import { calculateTotalBalance } from "@/utilities/balance"; // Import the utility function
-import { BalanceItem } from "@/interfaces";
+import { calculateTotalBalance } from "@/utilities/balance";
+import { BalanceItem, BalanceResult } from "@/interfaces";
+import { filterBalanceItemsByDateRange } from "@/utilities/filterBalanceItems";
+import BalanceDisplay from "./BalanceDisplay";
+import BalanceFilters from "./BalanceFilters"; // Import the BalanceFilters component
 
 function BalanceList() {
-  const [startDate, setStartDate] = useState<Date>(new Date("January 1 2022"));
-  const [endDate, setEndDate] = useState<Date>(new Date("July 5 2023"));
+  const [startDate, setStartDate] = useState<Date>(new Date("January 1 2023"));
+  const [endDate, setEndDate] = useState<Date>(new Date());
   const [selectedCustomerId, setSelectedCustomerId] =
     useState<string>("us.customer-01");
   const windowFocused = useWindowFocus();
+  const [totalBalanceInfo, setTotalBalanceInfo] = useState<BalanceResult>();
+  const [filteredBalanceItems, setFilteredBalanceItems] =
+    useState<BalanceItem[]>();
 
-  // Fetch all customer IDs
   const { data: customerIds, error: customerIdsError } =
     useGetAllCustomerIdsQuery();
 
-  // Use the new getBalanceByCustomer query
   const { data, error, isLoading } = useGetBalanceByCustomerQuery(
-    selectedCustomerId, // Pass the selectedCustomerId as a parameter
+    selectedCustomerId,
     {
       refetchOnMountOrArgChange: true,
       pollingInterval: windowFocused ? 1000 : 0,
     }
   );
+
+  useEffect(() => {
+    setFilteredBalanceItems(
+      filterBalanceItemsByDateRange(data as BalanceItem[], startDate, endDate)
+    );
+    setTotalBalanceInfo(
+      calculateTotalBalance(data as BalanceItem[], startDate, endDate)
+    );
+  }, [data, endDate, setTotalBalanceInfo, startDate]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -41,65 +51,31 @@ function BalanceList() {
     return <div>Error</div>;
   }
 
-  // Calculate the total balance within the specified date range
-  const { openingBalance, closingBalance } = calculateTotalBalance(
-    data as BalanceItem[],
-    startDate,
-    endDate
-  );
-
   return (
     <section>
-      <div>
-        <label htmlFor="startDate">Start Date:</label>
-        <DatePicker
-          id="startDate"
-          selected={startDate}
-          onChange={(date) =>
-            setStartDate(date ? date : new Date("January 1 1970"))
-          }
-          selectsStart
-          startDate={startDate}
-          endDate={endDate}
-          placeholderText="Select Start Date"
+      <BalanceFilters
+        startDate={startDate}
+        setStartDate={setStartDate}
+        endDate={endDate}
+        setEndDate={setEndDate}
+        selectedCustomerId={selectedCustomerId}
+        setSelectedCustomerId={setSelectedCustomerId}
+        customerIds={customerIds}
+      />
+      {totalBalanceInfo && (
+        <BalanceDisplay
+          openingBalance={totalBalanceInfo.openingBalance}
+          closingBalance={totalBalanceInfo.closingBalance}
+          balanceDifference={totalBalanceInfo.balanceDifference}
         />
-      </div>
-      <div>
-        <label htmlFor="endDate">End Date:</label>
-        <DatePicker
-          id="endDate"
-          selected={endDate}
-          onChange={(date) =>
-            setEndDate(date ? date : new Date("January 1 3000"))
-          }
-          selectsEnd
-          startDate={startDate}
-          endDate={endDate}
-          placeholderText="Select End Date"
-        />
-      </div>
-      <div>
-        <label htmlFor="customerId">Select Customer:</label>
-        <select
-          id="customerId"
-          value={selectedCustomerId || ""}
-          onChange={(e) => setSelectedCustomerId(e.target.value || "undefined")}
-        >
-          {customerIds?.map((customerId) => (
-            <option key={customerId} value={customerId}>
-              {customerId}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>Opening Balance: {openingBalance}</div>
-      <div>Closing Balance: {closingBalance}</div>
+      )}
       <StyledBalanceListUl>
-        {data &&
-          Object.keys(data).map((key) => {
-            const balanceItem = data[key as any];
-            return <BalanceListItem balance={balanceItem} key={key} />;
-          })}
+        {filteredBalanceItems?.map(
+          (balanceItem) =>
+            balanceItem && (
+              <BalanceListItem balance={balanceItem} key={balanceItem.id} />
+            )
+        )}
       </StyledBalanceListUl>
     </section>
   );

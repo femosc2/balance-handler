@@ -1,11 +1,6 @@
 import { BalanceItem } from "@/interfaces";
 
-export function calculateTotalBalance(
-  data: BalanceItem[],
-  startDate: Date,
-  endDate: Date
-) {
-  let totalBalance = 0;
+function calculateOpeningBalance(data: BalanceItem[], startDate: Date): number {
   let openingBalance = 0;
 
   for (const key in data) {
@@ -13,19 +8,6 @@ export function calculateTotalBalance(
       const balanceItem = data[key];
       const balanceItemTime = balanceItem.time;
 
-      // Check if the balance item's time is within the specified date range
-      if (
-        balanceItemTime >= startDate.getTime() &&
-        balanceItemTime <= endDate.getTime()
-      ) {
-        if (balanceItem.type === "INCREASED") {
-          totalBalance += balanceItem.adjustment;
-        } else if (balanceItem.type === "DECREASED") {
-          totalBalance -= balanceItem.adjustment;
-        }
-      }
-
-      // Calculate the opening balance for events before the start date
       if (balanceItemTime < startDate.getTime()) {
         if (balanceItem.type === "INCREASED") {
           openingBalance += balanceItem.adjustment;
@@ -36,11 +18,54 @@ export function calculateTotalBalance(
     }
   }
 
-  // Calculate closing balance by adding the opening balance to the total balance
-  const closingBalance = openingBalance + totalBalance;
+  return openingBalance;
+}
+
+function calculateBalanceInTimeframe(
+  data: BalanceItem[],
+  startDate: Date,
+  endDate: Date
+): number {
+  let totalBalance = 0;
+
+  for (const key in data) {
+    if (data.hasOwnProperty(key)) {
+      const balanceItem = data[key];
+      const balanceItemTime = balanceItem.time;
+
+      if (
+        balanceItemTime >= startDate.getTime() &&
+        balanceItemTime <= endDate.getTime()
+      ) {
+        if (balanceItem.type === "INCREASED") {
+          totalBalance += balanceItem.adjustment;
+        } else if (balanceItem.type === "DECREASED") {
+          totalBalance += balanceItem.adjustment;
+        }
+      }
+    }
+  }
+
+  return totalBalance;
+}
+
+export function calculateTotalBalance(
+  data: BalanceItem[],
+  startDate: Date,
+  endDate: Date
+) {
+  const openingBalance = calculateOpeningBalance(data, startDate);
+  const balanceInTimeframe = calculateBalanceInTimeframe(
+    data,
+    startDate,
+    endDate
+  );
+  const closingBalance = openingBalance + balanceInTimeframe;
+  const balanceDifference = closingBalance - openingBalance;
 
   return {
     openingBalance,
     closingBalance,
+    balanceDifference,
   };
 }
