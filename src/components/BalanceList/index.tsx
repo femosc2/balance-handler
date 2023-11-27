@@ -29,7 +29,9 @@ function BalanceList() {
     useState<BalanceItem[]>();
 
   const { data: customerIds, error: customerIdsError } =
-    useGetAllCustomerIdsQuery();
+    useGetAllCustomerIdsQuery(undefined, {
+      pollingInterval: windowFocused ? 1000 : 0, // Poll every 1000ms (1 second) when the window is focused
+    });
 
   const { data, error, isLoading } = useGetBalanceByCustomerQuery(
     selectedCustomerId,

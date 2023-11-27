@@ -22,7 +22,8 @@ export function filterBalanceItemsByDateRange(
           customerId: balanceItem.customerId,
           adjustment: balanceItem.adjustment,
         };
-      });
+      })
+      .reverse();
   } else {
     return [];
   }
